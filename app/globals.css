@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink text-slate-200 antialiased;
+  background-image:
+    radial-gradient(60rem 60rem at 80% -10%, rgba(124, 92, 255, 0.18), transparent 60%),
+    radial-gradient(50rem 50rem at 0% 20%, rgba(34, 211, 238, 0.12), transparent 55%),
+    radial-gradient(45rem 45rem at 50% 120%, rgba(244, 114, 182, 0.12), transparent 55%);
+  background-attachment: fixed;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #05060a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#7c5cff, #22d3ee);
+  border-radius: 999px;
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-soft via-cyan-glow to-pink-glow bg-clip-text text-transparent;
+  }
+
+  .glass {
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-md;
+  }
+
+  .section {
+    @apply mx-auto max-w-6xl px-6 py-24 md:py-32;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold tracking-tight text-white md:text-4xl;
+  }
+
+  .eyebrow {
+    @apply mb-3 inline-block font-mono text-sm uppercase tracking-[0.25em] text-accent-soft;
+  }
+
+  /* Glowing gradient border card */
+  .glow-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .glow-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(140deg, rgba(124, 92, 255, 0.6), rgba(34, 211, 238, 0.25) 40%, transparent 70%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6;
+    transition: opacity 0.35s ease;
+    z-index: -1;
+  }
+  .glow-card:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
