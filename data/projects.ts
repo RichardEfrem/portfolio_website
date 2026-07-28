@@ -9,6 +9,7 @@ export type Project = {
   description: string;
   tags: string[];
   repo: string;
+  repos?: { frontend: string; backend: string };
   demo?: string;
   image?: string; // e.g. "/projects/gunsnip.png"
   featured?: boolean;
@@ -19,9 +20,13 @@ export const projects: Project[] = [
   {
     title: "Iconspirit",
     description:
-      "Production frontend for the Iconspirit company website — a TypeScript codebase focused on a polished, responsive user experience.",
-    tags: ["TypeScript", "React", "Frontend"],
+      "Production website for Iconspirit — a full-stack TypeScript codebase with a polished, responsive frontend and a dedicated backend service.",
+    tags: ["TypeScript", "React", "Full Stack"],
     repo: "https://github.com/RichardEfrem/iconspirit_frontend",
+    repos: {
+      frontend: "https://github.com/RichardEfrem/iconspirit_frontend",
+      backend: "https://github.com/RichardEfrem/iconspirit_backend",
+    },
     category: "Web",
     featured: true,
   },

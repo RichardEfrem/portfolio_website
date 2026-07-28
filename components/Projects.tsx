@@ -12,15 +12,33 @@ const categoryColor: Record<Project["category"], string> = {
 };
 
 function Card({ project, index }: { project: Project; index: number }) {
+  const hasSplitRepos = Boolean(project.repos);
+
+  const handleCardClick = () => {
+    if (!hasSplitRepos) {
+      window.open(project.repo, "_blank", "noreferrer");
+    }
+  };
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.55, delay: (index % 3) * 0.08 }}
+      onClick={handleCardClick}
+      role={hasSplitRepos ? undefined : "link"}
+      tabIndex={hasSplitRepos ? undefined : 0}
+      onKeyDown={
+        hasSplitRepos
+          ? undefined
+          : (e) => {
+              if (e.key === "Enter" || e.key === " ") handleCardClick();
+            }
+      }
       className={`glow-card group flex flex-col rounded-3xl glass p-6 transition-transform duration-300 hover:-translate-y-1.5 ${
-        project.featured ? "md:col-span-2" : ""
-      }`}
+        hasSplitRepos ? "" : "cursor-pointer"
+      } ${project.featured ? "md:col-span-2" : ""}`}
     >
       <div className="mb-4 flex items-center justify-between">
         <span
@@ -29,21 +47,25 @@ function Card({ project, index }: { project: Project; index: number }) {
           {project.category}
         </span>
         <div className="flex items-center gap-3 text-slate-400">
-          <a
-            href={project.repo}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="View source on GitHub"
-            className="transition-colors hover:text-white"
-          >
-            <FiGithub className="text-xl" />
-          </a>
+          {!hasSplitRepos && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="View source on GitHub"
+              onClick={(e) => e.stopPropagation()}
+              className="transition-colors hover:text-white"
+            >
+              <FiGithub className="text-xl" />
+            </a>
+          )}
           {project.demo && (
             <a
               href={project.demo}
               target="_blank"
               rel="noreferrer"
               aria-label="Open live demo"
+              onClick={(e) => e.stopPropagation()}
               className="transition-colors hover:text-white"
             >
               <FiExternalLink className="text-xl" />
@@ -54,7 +76,9 @@ function Card({ project, index }: { project: Project; index: number }) {
 
       <h3 className="flex items-center gap-1 text-2xl font-bold text-white">
         {project.title}
-        <FiArrowUpRight className="text-accent-soft opacity-0 transition-opacity group-hover:opacity-100" />
+        {!hasSplitRepos && (
+          <FiArrowUpRight className="text-accent-soft opacity-0 transition-opacity group-hover:opacity-100" />
+        )}
       </h3>
 
       <p className="mt-3 flex-1 text-slate-400">{project.description}</p>
@@ -69,6 +93,29 @@ function Card({ project, index }: { project: Project; index: number }) {
           </span>
         ))}
       </div>
+
+      {hasSplitRepos && project.repos && (
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a
+            href={project.repos.frontend}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-2 rounded-full border border-cyan-glow/30 bg-cyan-glow/10 px-4 py-2 text-sm font-medium text-cyan-glow transition-colors hover:bg-cyan-glow/20"
+          >
+            <FiGithub /> Frontend repo
+          </a>
+          <a
+            href={project.repos.backend}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-medium text-accent-soft transition-colors hover:bg-accent/20"
+          >
+            <FiGithub /> Backend repo
+          </a>
+        </div>
+      )}
     </motion.article>
   );
 }
