@@ -8,42 +8,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#05060a",
-        surface: "#0b0d16",
-        card: "#11131f",
-        accent: {
-          DEFAULT: "#7c5cff",
-          soft: "#a78bfa",
-        },
-        cyan: {
-          glow: "#22d3ee",
-        },
-        pink: {
-          glow: "#f472b6",
-        },
+        base: "#0A0A0B",
+        elevate: "#111113",
+        raise: "#17171A",
+        line: "#26262B",
+        ink: "#ECECEE",
+        mute: "#9B9BA3",
+        dim: "#6C6C75",
+        accent: "#C8A97E",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       keyframes: {
-        "gradient-shift": {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(14px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-14px)" },
-        },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "0.8" },
+        caret: {
+          "0%, 45%": { opacity: "1" },
+          "50%, 95%": { opacity: "0" },
         },
       },
       animation: {
-        "gradient-shift": "gradient-shift 8s ease infinite",
-        float: "float 6s ease-in-out infinite",
-        "pulse-glow": "pulse-glow 5s ease-in-out infinite",
+        "fade-up": "fade-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both",
+        caret: "caret 1.2s step-end infinite",
       },
     },
   },

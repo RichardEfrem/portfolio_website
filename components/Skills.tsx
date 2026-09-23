@@ -1,52 +1,47 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { skillGroups } from "@/data/skills";
 import Reveal from "./Reveal";
 
 export default function Skills() {
   return (
-    <section id="skills" className="section">
+    <section id="stack" className="section">
       <Reveal>
-        <p className="eyebrow">03 — Toolbox</p>
-        <h2 className="section-title">Skills &amp; technologies</h2>
-        <p className="mt-3 max-w-2xl text-slate-400">
-          The languages and tools I reach for to take products from idea to
-          production.
+        <p className="eyebrow">04 / Stack</p>
+        <h2 className="section-title">Tools I reach for</h2>
+        <p className="lede">
+          The languages, frameworks, and infrastructure I use to take an idea
+          from a blank repository to something running in production.
         </p>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {skillGroups.map((group, gi) => (
-          <Reveal key={group.label} delay={gi * 0.08}>
-            <div className="glow-card h-full rounded-3xl glass p-6">
-              <h3 className="mb-5 font-mono text-sm uppercase tracking-[0.2em] text-accent-soft">
+      <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {skillGroups.map((group, i) => (
+          <Reveal key={group.label} delay={(i % 2) * 90}>
+            <div className="panel h-full p-6">
+              <h3 className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-accent">
                 {group.label}
               </h3>
-              <div className="flex flex-wrap gap-3">
-                {group.skills.map((skill, si) => {
+              <p className="mt-2 text-sm text-dim">{group.note}</p>
+
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {group.skills.map((skill) => {
                   const Icon = skill.icon;
                   return (
-                    <motion.div
+                    <li
                       key={skill.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: si * 0.04 }}
-                      whileHover={{ y: -4 }}
-                      className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5"
+                      className="group flex items-center gap-2 rounded-lg border border-line bg-raise px-3 py-2 transition-colors hover:border-dim"
                     >
                       <Icon
-                        className="text-xl"
+                        className="text-base opacity-60 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0"
                         style={{ color: skill.color }}
+                        aria-hidden
                       />
-                      <span className="text-sm font-medium text-slate-200">
+                      <span className="text-[0.8rem] text-mute transition-colors group-hover:text-ink">
                         {skill.name}
                       </span>
-                    </motion.div>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
           </Reveal>
         ))}

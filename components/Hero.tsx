@@ -1,155 +1,150 @@
-"use client";
-
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-import { FiArrowDown, FiGithub, FiMail } from "react-icons/fi";
+import { FiArrowRight, FiGithub, FiMail } from "react-icons/fi";
 import { profile } from "@/data/profile";
+import RoleRotator from "./RoleRotator";
+
+const meta = [
+  { label: "Based in", value: profile.location },
+  { label: "Education", value: profile.degree, sub: profile.university },
+  { label: "Previously", value: profile.previousRole, sub: profile.university },
+];
 
 export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(
-      () => setRoleIndex((i) => (i + 1) % profile.roles.length),
-      2600
-    );
-    return () => clearInterval(id);
-  }, []);
-
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden"
+      className="relative flex min-h-[92vh] items-center px-6 pt-28 pb-20"
     >
-      {/* floating blobs */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-[10%] top-[20%] h-72 w-72 rounded-full bg-accent/20 blur-3xl animate-float" />
-        <div className="absolute right-[12%] top-[30%] h-80 w-80 rounded-full bg-cyan-glow/15 blur-3xl animate-float [animation-delay:-3s]" />
-        <div className="absolute bottom-[10%] left-[40%] h-64 w-64 rounded-full bg-pink-glow/15 blur-3xl animate-pulse-glow" />
-      </div>
-
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 px-6 pt-24 md:grid-cols-[1.4fr_1fr]">
+      <div className="mx-auto grid w-full max-w-5xl grid-cols-1 items-center gap-14 lg:grid-cols-[1.3fr_1fr]">
         <div>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-5 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 font-mono text-sm text-slate-300"
+          <p
+            className="inline-flex items-center gap-2.5 rounded-full border border-line bg-elevate px-3.5 py-1.5 font-mono text-xs text-mute animate-fade-up"
+            style={{ animationDelay: "0ms" }}
           >
-            <span className="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_10px] shadow-green-400" />
-            Available for opportunities
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
-            className="text-5xl font-black leading-[1.05] tracking-tight text-white md:text-7xl"
-          >
-            Hi, I&apos;m
-            <br />
-            <span className="gradient-text">{profile.name}.</span>
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="mt-6 flex items-center gap-2 text-2xl font-semibold text-slate-200 md:text-3xl"
-          >
-            <span className="font-mono text-accent-soft">{"{"}</span>
-            <span className="relative flex h-9 items-center justify-center overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={roleIndex}
-                  className="whitespace-nowrap"
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -14 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                >
-                  {profile.roles[roleIndex]}
-                </motion.span>
-              </AnimatePresence>
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400/70" />
             </span>
-            <span className="font-mono text-accent-soft">{"}"}</span>
-          </motion.div>
+            {profile.availability}
+          </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-            className="mt-6 max-w-xl text-lg leading-relaxed text-slate-400"
+          <h1
+            className="mt-7 text-[2.75rem] font-semibold leading-[1.05] tracking-[-0.03em] text-ink sm:text-6xl animate-fade-up"
+            style={{ animationDelay: "70ms" }}
+          >
+            {profile.name}
+          </h1>
+
+          <p
+            className="mt-4 font-mono text-base text-mute sm:text-lg animate-fade-up"
+            style={{ animationDelay: "140ms" }}
+          >
+            <span className="text-accent">$</span> <RoleRotator />
+            <span className="ml-0.5 inline-block h-[1.1em] w-[0.5ch] translate-y-[0.15em] bg-accent animate-caret" />
+          </p>
+
+          <p
+            className="mt-7 max-w-xl text-base leading-relaxed text-mute animate-fade-up"
+            style={{ animationDelay: "210ms" }}
           >
             {profile.tagline}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-9 flex flex-wrap items-center gap-4"
+          <div
+            className="mt-9 flex flex-wrap items-center gap-3 animate-fade-up"
+            style={{ animationDelay: "280ms" }}
           >
-            <a
-              href="#projects"
-              className="rounded-full bg-gradient-to-r from-accent to-cyan-glow px-7 py-3 font-semibold text-white shadow-lg shadow-accent/30 transition-transform hover:scale-105"
-            >
-              View my work
+            <a href="#work" className="btn-primary">
+              View selected work <FiArrowRight />
             </a>
             <a
               href={profile.links.github}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 rounded-full glass px-6 py-3 font-medium text-white transition-colors hover:bg-white/10"
+              className="btn-ghost"
             >
               <FiGithub /> GitHub
             </a>
-            <a
-              href={`mailto:${profile.links.email}`}
-              className="flex items-center gap-2 rounded-full glass px-6 py-3 font-medium text-white transition-colors hover:bg-white/10"
-            >
+            <a href={`mailto:${profile.links.email}`} className="btn-ghost">
               <FiMail /> Email
             </a>
-          </motion.div>
+          </div>
+
+          <dl
+            className="mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-5 border-t border-line pt-7 sm:grid-cols-3 animate-fade-up"
+            style={{ animationDelay: "350ms" }}
+          >
+            {meta.map((m) => (
+              <div key={m.label}>
+                <dt className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-dim">
+                  {m.label}
+                </dt>
+                <dd className="mt-1.5 text-sm leading-snug text-ink">
+                  {m.value}
+                  {m.sub && (
+                    <span className="mt-0.5 block text-[0.78rem] text-dim">
+                      {m.sub}
+                    </span>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        {/* Avatar / code card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative mx-auto hidden md:block"
+        <div
+          className="hidden animate-fade-up lg:block"
+          style={{ animationDelay: "240ms" }}
         >
-          <div className="glow-card rounded-3xl glass p-2">
-            <div className="rounded-2xl bg-surface p-5 font-mono text-sm leading-relaxed">
-              <div className="mb-4 flex gap-1.5">
-                <span className="h-3 w-3 rounded-full bg-red-400/80" />
-                <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
-                <span className="h-3 w-3 rounded-full bg-green-400/80" />
-              </div>
-              <pre className="whitespace-pre-wrap text-slate-300">
-                <span className="text-pink-glow">const</span>{" "}
-                <span className="text-cyan-glow">richard</span> = {"{"}
-                {"\n"}  role: <span className="text-green-400">&quot;Fullstack&quot;</span>,
-                {"\n"}  stack: [<span className="text-green-400">&quot;Next.js&quot;</span>,{" "}
-                <span className="text-green-400">&quot;Laravel&quot;</span>,{" "}
-                <span className="text-green-400">&quot;Python&quot;</span>],
-                {"\n"}  mobile: <span className="text-green-400">&quot;Flutter&quot;</span>,
-                {"\n"}  learning: <span className="text-accent-soft">true</span>,
-                {"\n"}
-                {"}"};
-              </pre>
+          <div className="panel overflow-hidden">
+            <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-line" />
+              <span className="h-2.5 w-2.5 rounded-full bg-line" />
+              <span className="h-2.5 w-2.5 rounded-full bg-line" />
+              <span className="ml-2 font-mono text-[0.7rem] text-dim">
+                stack.json
+              </span>
             </div>
+            <pre className="overflow-x-auto p-5 font-mono text-[0.78rem] leading-[1.9] text-mute">
+              <span className="text-dim">$ cat stack.json</span>
+              {"\n\n"}
+              <span className="text-dim">{"{"}</span>
+              {"\n  "}
+              <span className="text-accent">&quot;web&quot;</span>
+              <span className="text-dim">:</span> [
+              <span className="text-ink">&quot;Next.js&quot;</span>,{" "}
+              <span className="text-ink">&quot;React&quot;</span>,{" "}
+              <span className="text-ink">&quot;Laravel&quot;</span>],
+              {"\n  "}
+              <span className="text-accent">&quot;mobile&quot;</span>
+              <span className="text-dim">:</span> [
+              <span className="text-ink">&quot;Flutter&quot;</span>,{" "}
+              <span className="text-ink">&quot;Kotlin&quot;</span>],
+              {"\n  "}
+              <span className="text-accent">&quot;services&quot;</span>
+              <span className="text-dim">:</span> [
+              <span className="text-ink">&quot;NestJS&quot;</span>,{" "}
+              <span className="text-ink">&quot;Python&quot;</span>],
+              {"\n  "}
+              <span className="text-accent">&quot;data&quot;</span>
+              <span className="text-dim">:</span> [
+              <span className="text-ink">&quot;PostgreSQL&quot;</span>,{" "}
+              <span className="text-ink">&quot;Prisma&quot;</span>],
+              {"\n  "}
+              <span className="text-accent">&quot;principle&quot;</span>
+              <span className="text-dim">:</span>{" "}
+              <span className="text-ink">&quot;ship it clean&quot;</span>
+              {"\n"}
+              <span className="text-dim">{"}"}</span>
+            </pre>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <a
         href="#about"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 transition-colors hover:text-white"
-        aria-label="Scroll to about"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 items-center gap-3 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-dim transition-colors hover:text-ink md:flex"
       >
-        <FiArrowDown className="animate-bounce text-2xl" />
+        Scroll
+        <span className="h-px w-10 bg-line" />
       </a>
     </section>
   );

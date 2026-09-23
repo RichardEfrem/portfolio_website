@@ -1,7 +1,3 @@
-// ─────────────────────────────────────────────────────────────
-//  Skills grid. Icons come from react-icons (Simple Icons set).
-//  Add/remove freely.
-// ─────────────────────────────────────────────────────────────
 import type { IconType } from "react-icons";
 import {
   SiTypescript,
@@ -21,17 +17,21 @@ import {
   SiGit,
   SiDocker,
   SiNodedotjs,
+  SiNestjs,
+  SiPrisma,
   SiHtml5,
 } from "react-icons/si";
 
 export type SkillGroup = {
   label: string;
+  note: string;
   skills: { name: string; icon: IconType; color: string }[];
 };
 
 export const skillGroups: SkillGroup[] = [
   {
     label: "Frontend",
+    note: "Interfaces that stay fast and readable",
     skills: [
       { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
       { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
@@ -43,15 +43,18 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Backend",
+    note: "APIs and services behind the product",
     skills: [
       { name: "Python", icon: SiPython, color: "#3776AB" },
       { name: "Laravel", icon: SiLaravel, color: "#FF2D20" },
       { name: "PHP", icon: SiPhp, color: "#777BB4" },
       { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
+      { name: "NestJS", icon: SiNestjs, color: "#E0234E" },
     ],
   },
   {
     label: "Mobile",
+    note: "Native and cross-platform apps",
     skills: [
       { name: "Flutter", icon: SiFlutter, color: "#02569B" },
       { name: "Dart", icon: SiDart, color: "#0175C2" },
@@ -60,10 +63,12 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    label: "Data & Tools",
+    label: "Data & Tooling",
+    note: "Storage, versioning, and delivery",
     skills: [
       { name: "MySQL", icon: SiMysql, color: "#4479A1" },
       { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+      { name: "Prisma", icon: SiPrisma, color: "#2D3748" },
       { name: "Git", icon: SiGit, color: "#F05032" },
       { name: "Docker", icon: SiDocker, color: "#2496ED" },
     ],
