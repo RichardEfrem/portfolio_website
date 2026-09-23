@@ -45,20 +45,22 @@ export default function Gallery({
 
   return (
     <div className="flex flex-col border-b border-line bg-raise md:border-b-0 md:border-r">
-      <div className="group/shot relative aspect-[2/1] md:aspect-auto md:min-h-[18rem] md:flex-1">
-        {shots.map((s, i) => (
-          <Image
-            key={s.src}
-            src={s.src}
-            alt={`${title} — ${s.caption}`}
-            fill
-            sizes="(max-width: 768px) 100vw, 55vw"
-            priority={i === 0}
-            className={`object-contain transition-opacity duration-500 ${
-              i === index ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
+      <div className="group/shot relative flex flex-1 items-center">
+        <div className="relative aspect-[2/1] w-full">
+          {shots.map((s, i) => (
+            <Image
+              key={s.src}
+              src={s.src}
+              alt={`${title} — ${s.caption}`}
+              fill
+              sizes="(max-width: 768px) 100vw, 55vw"
+              priority={i === 0}
+              className={`object-contain transition-opacity duration-500 ${
+                i === index ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+        </div>
 
         <button
           type="button"
