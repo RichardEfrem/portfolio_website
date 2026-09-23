@@ -27,7 +27,7 @@ export default function About() {
               alt={profile.name}
               width={520}
               height={520}
-              className="aspect-square w-full object-cover opacity-90 grayscale-[45%] transition duration-500 hover:opacity-100 hover:grayscale-0"
+              className="aspect-square w-full object-cover opacity-90 transition duration-500 hover:opacity-100"
               priority
             />
             <div className="border-t border-line px-4 py-3">
